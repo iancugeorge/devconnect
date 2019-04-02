@@ -1,2 +1,2 @@
 # devconnect
-MEAN
+MERN
