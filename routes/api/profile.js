@@ -41,7 +41,53 @@ router.post(
   "/",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
-    
+    const profileFileds = {};
+    profileFileds.user = req.user.id;
+    if (req.body.handle) profileFileds.handle = req.body.handle;
+    if (req.body.company) profileFileds.company = req.body.company;
+    if (req.body.website) profileFileds.website = req.body.website;
+    if (req.body.location) profileFileds.location = req.body.location;
+    if (req.body.bio) profileFileds.bio = req.body.bio;
+    if (req.body.status) profileFileds.status = req.body.status;
+    if (req.body.githubusername)
+      profileFileds.githubusername = req.body.githubusername;
+
+    // Skills - Split into array
+    if (req.body.skills !== "undefined") {
+      profileFileds.skills = req.body.skills.split(",");
+    }
+
+    // Social
+    profileFields.social = {};
+    if (req.body.youtube) profileFileds.social.youtube = req.body.youtube;
+    if (req.body.twitter) profileFileds.social.twitter = req.body.twitter;
+    if (req.body.facebook) profileFileds.social.facebook = req.body.facebook;
+    if (req.body.linkedin) profileFileds.social.linkedin = req.body.linkedin;
+    if (req.body.instagram) profileFileds.social.instagram = req.body.instagram;
+
+    Profile.findOne({ user: req.user.id }).then(profile => {
+      if (profile) {
+        // Update
+        Profile.findOneAndUpdate(
+          { user: req.user.id },
+          { $set: profileFileds },
+          { new: true }
+        ).then(profile => res.json(profile));
+      } else {
+        // Create
+
+        // Check if handle exists
+        Profile.findOne({ handle: profileFileds.handle }).then(profile => {
+          if (profile) {
+            errors.handle = "That handle already exists";
+            res.status(400).json(erorrs);
+          }
+
+          // Save Profile
+          new Profile(profileFileds).save().then(profile => res.json(profile));
+        });
+      }
+    });
   }
 );
 
