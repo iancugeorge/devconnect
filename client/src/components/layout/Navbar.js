@@ -16,7 +16,7 @@ class Navbar extends Component {
     const authLinks = (
       <ul className="navbar-nav ml-auto">
         <li className="nav-item">
-          <a href="#" onClick={this.onLogoutClick.bind(this)} className="nav-link"><img className='rounded-circle' src={user.avatar} alt={user.name} style={{ width: '25px', marginRight: '5px' }} title="Delogare" /> Delogare </a>
+          <a href="/" onClick={this.onLogoutClick.bind(this)} className="nav-link"><img className='rounded-circle' src={user.avatar} alt={user.name} style={{ width: '25px', marginRight: '5px' }} title="Delogare" /> Delogare </a>
         </li>
       </ul>
     );
@@ -43,7 +43,7 @@ class Navbar extends Component {
           <div className="collapse navbar-collapse" id="mobile-nav">
             <ul className="navbar-nav mr-auto">
               <li className="nav-item">
-                <Link className="nav-link" to="/exercises"> Probleme </Link>
+                <Link className="nav-link" to="/getexercise"> Probleme </Link>
               </li>
             </ul>
 

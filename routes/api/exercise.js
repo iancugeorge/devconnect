@@ -8,7 +8,7 @@ const Exercise = require("../../models/Exercise");
 // @desc    Post an exercise
 // @access  Public
 router.post("/", (req, res) => {
-  Exercise.findOne({ id: req.body.id }).then(exercise => {
+  Exercise.findOne({ id: req.header.id }).then(exercise => {
     if (exercise) {
       return res.status(400).json({ error: "Id already exists" });
     } else {
@@ -31,8 +31,9 @@ router.post("/", (req, res) => {
 // @route   GET api/exercise
 // @desc    Get an exercise
 // @access  Public
-router.get('/', (req, res) => {
-  Exercise.findOne({ id: req.body.id })
+router.get('/:id', (req, res) => {
+  console.log("--------------------     " + req.params.id);
+  Exercise.findOne({ id: req.params.id })
     .then(exercise => {
       if (exercise) {
         res.json({
@@ -40,7 +41,7 @@ router.get('/', (req, res) => {
           text: exercise.text,
           valInit: exercise.valInit,
           valCalc: exercise.valCalc,
-          response: exercise.response
+          result: exercise.result
         });
       } else {
         return res.status(404).json({ error: 'Exercitiu inexistent' });

@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
-import classnames from 'classnames';
 import { connect } from 'react-redux';
 import { registerUser } from '../../actions/authActions';
+import TextFieldGroup from '../common/TextFieldGroup';
 
 class Register extends Component {
 
@@ -63,55 +63,43 @@ class Register extends Component {
               <h1 className="display-4 text-center">Inregistrare</h1>
               <p className="lead text-center">Creaza-ti un cont</p>
               <form noValidate onSubmit={this.onSubmit}>
-                <div className="form-group">
-                  <input type="text"
-                    className={classnames("form-control form-control-lg", {
-                      'is-invalid': errors.name
-                    })}
-                    placeholder="Nume"
-                    name="name"
-                    value={this.state.name}
-                    onChange={this.onChange}
-                  />
-                  {errors.name && (<div className="invalid-feedback">{errors.name}</div>)}
-                </div>
-                <div className="form-group">
-                  <input type="email"
-                    className={classnames("form-control form-control-lg", {
-                      'is-invalid': errors.email
-                    })}
-                    placeholder="Email"
-                    name="email"
-                    value={this.state.email}
-                    onChange={this.onChange}
-                  />
-                  {errors.email && (<div className="invalid-feedback">{errors.email}</div>)}
-                  <small className="form-text text-muted"></small>
-                </div>
-                <div className="form-group">
-                  <input type="password"
-                    className={classnames("form-control form-control-lg", {
-                      'is-invalid': errors.password
-                    })}
-                    placeholder="Parola"
-                    name="password"
-                    value={this.state.password}
-                    onChange={this.onChange}
-                  />
-                  {errors.password && (<div className="invalid-feedback">{errors.password}</div>)}
-                </div>
-                <div className="form-group">
-                  <input type="password"
-                    className={classnames("form-control form-control-lg", {
-                      'is-invalid': errors.password2
-                    })}
-                    placeholder="Confirma Parola"
-                    name="password2"
-                    value={this.state.password2}
-                    onChange={this.onChange}
-                  />
-                  {errors.password2 && (<div className="invalid-feedback">{errors.password2}</div>)}
-                </div>
+
+                <TextFieldGroup
+                  placeholder="Nume"
+                  name="name"
+                  value={this.state.name}
+                  onChange={this.onChange}
+                  error={errors.name}
+                />
+
+                <TextFieldGroup
+                  placeholder="Email"
+                  name="email"
+                  type="email"
+                  value={this.state.email}
+                  onChange={this.onChange}
+                  error={errors.email}
+                  info="Avatarul atasat de contul de Gravatar"
+                />
+
+                <TextFieldGroup
+                  placeholder="Parola"
+                  name="password"
+                  type="password"
+                  value={this.state.password}
+                  onChange={this.onChange}
+                  error={errors.password}
+                />
+
+                <TextFieldGroup
+                  placeholder="Confirma parola"
+                  name="password2"
+                  type="password"
+                  value={this.state.password2}
+                  onChange={this.onChange}
+                  error={errors.password2}
+                />
+
                 <input type="submit" className="btn btn-info btn-block mt-4" />
               </form>
             </div>

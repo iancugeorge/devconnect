@@ -14,6 +14,7 @@ import Login from './components/auth/Login';
 import Register from './components/auth/Register';
 
 import './App.css';
+import GetExercise from './components/exec/GetExercise';
 
 // Check for token
 if (localStorage.jwtToken) {
@@ -46,6 +47,7 @@ class App extends Component {
             <div className="container">
               <Route exact path="/register" component={Register} />
               <Route exact path="/login" component={Login} />
+              <Route exact path="/getExercise" component={GetExercise} />
             </div>
             <Footer />
           </div>
