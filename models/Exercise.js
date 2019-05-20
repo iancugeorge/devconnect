@@ -2,7 +2,11 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 // Create Schema
-const ExerciseSchema = new Schema = ({
+const ExerciseSchema = new Schema({
+  id: {
+    type: Number,
+    required: true
+  },
   text: {
     type: String,
     require: true
@@ -34,5 +38,11 @@ const ExerciseSchema = new Schema = ({
         require: true
       }
     }
-  ]
+  ],
+  result: {
+    type: String,
+    require: true
+  }
 });
+
+module.exports = Exercise = mongoose.model("exercise", ExerciseSchema);
