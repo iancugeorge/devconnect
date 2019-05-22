@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getExercise } from '../../actions/execActions';
 import TextFieldGroup from '../common/TextFieldGroup';
+import { updateVars, toTemplate } from '../../utils/variableUtils';
 
 class GetExercise extends Component {
   constructor() {
@@ -13,6 +14,7 @@ class GetExercise extends Component {
       valInit: [],
       valCalc: [],
       result: '',
+      response: '',
       errors: {}
     };
 
@@ -21,6 +23,21 @@ class GetExercise extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    if (nextProps.exec.isRetrived) {
+
+
+      const ex = nextProps.exec.exercise;
+      this.state.id = ex.id;
+      this.state.text = ex.text;
+      this.state.valInit = ex.valInit;
+      this.state.valCalc = ex.valCalc;
+      this.state.result = ex.result;
+      console.log(this.state);
+
+      updateVars(this.state);
+
+
+    }
     if (nextProps.errors) {
       this.setState({ errors: nextProps.errors });
     }
@@ -52,10 +69,19 @@ class GetExercise extends Component {
                   placeholder="Id Problema"
                   name="id"
                   type="number"
-                  value={this.state.id}
+                  value={this.state.id.toString()}
                   onChange={this.onChange}
                   errors={this.errors}
                 />
+
+                <p>{toTemplate(this.state.text)}</p>
+                {this.state.result ?
+                  <TextFieldGroup
+                    placeholder="Raspuns"
+                    name="response"
+                    type="number"
+                    value={this.state.response}
+                    onChange={this.onChange} /> : ''}
 
                 <input type="submit" className="btn btn-info btn-block mt-4" />
               </form>
@@ -70,11 +96,13 @@ class GetExercise extends Component {
 
 GetExercise.propTypes = {
   getExercise: PropTypes.func.isRequired,
-  exec: PropTypes.object.isRequired
+  exec: PropTypes.object.isRequired,
+  errors: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
-  exec: state.exec.exercise
+  exec: state.exec,
+  errors: state.errors
 });
 
 export default connect(mapStateToProps, { getExercise })(GetExercise);
