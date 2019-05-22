@@ -14,6 +14,7 @@ router.post("/", (req, res) => {
     } else {
       const newExercise = new Exercise({
         id: req.body.id,
+        tags: req.body.tags,
         text: req.body.text,
         valInit: req.body.valInit,
         valCalc: req.body.valCalc,
@@ -38,6 +39,7 @@ router.get('/:id', (req, res) => {
       if (exercise) {
         res.json({
           id: exercise.id,
+          tags: exercise.tags,
           text: exercise.text,
           valInit: exercise.valInit,
           valCalc: exercise.valCalc,

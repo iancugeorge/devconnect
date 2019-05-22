@@ -12,9 +12,10 @@ import Footer from './components/layout/Footer';
 import Landing from './components/layout/Landing';
 import Login from './components/auth/Login';
 import Register from './components/auth/Register';
+import GetExercise from './components/exec/GetExercise';
+import Exercise from './components/exec/Exercise';
 
 import './App.css';
-import GetExercise from './components/exec/GetExercise';
 
 // Check for token
 if (localStorage.jwtToken) {
@@ -48,6 +49,7 @@ class App extends Component {
               <Route exact path="/register" component={Register} />
               <Route exact path="/login" component={Login} />
               <Route exact path="/getExercise" component={GetExercise} />
+              <Route exact path="/exercise" component={Exercise} />
             </div>
             <Footer />
           </div>

@@ -7,8 +7,6 @@ export const getExercise = exerciseId => dispatch => {
   axios
     .get(`/api/exercise/${exerciseId}`)
     .then(res => {
-
-      console.log(res);
       dispatch({
         type: SET_CURRENT_EXERCISE,
         payload: res.data
@@ -17,7 +15,7 @@ export const getExercise = exerciseId => dispatch => {
     .catch(err =>
       dispatch({
         type: GET_ERRORS,
-        payload: []//err.response.data
+        payload: {} // err.response.data
       })
     );
 };
