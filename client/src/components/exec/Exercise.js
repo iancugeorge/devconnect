@@ -16,6 +16,7 @@ class Exercise extends Component {
       response: '',
 
       isRight: false,
+      isWrong: false,
       isChecked: false,
 
       errors: {}
@@ -30,6 +31,12 @@ class Exercise extends Component {
   }
 
   componentDidMount() {
+
+
+    if (!this.props.auth.isAuthenticated) {
+      this.props.history.push('./');
+    }
+
 
     if (!this.props.exec.isRetrived) {
       this.props.history.push('./getexercise');
@@ -50,37 +57,23 @@ class Exercise extends Component {
     }
   }
 
-  componentDidUpdate() {
-    if (!this.state.isChecked) {
-      console.log(Date.now.toString())
-    }
-    if (this.state.isChecked && !this.state.isRight) {
-      this.state.errors = { wrong: "Raspuns gresit" };
-      this.state.isChecked = false;
-    } else if (this.state.isChecked && this.state.isRight) {
-      this.state.errors = {};
-      this.state.isChecked = false;
-    }
-  }
 
   onChange(e) {
     this.setState({ [e.target.name]: e.target.value });
   }
 
-  async onSubmit(e) {
+  onSubmit(e) {
     e.preventDefault();
 
-    if (this.state.isRight) {
+    if (this.state.isRight && !this.state.isWrong) {
       this.props.history.push(`./getexercise`);
     }
 
-    this.state.isRight = this.checkResponse(this.state.response, this.state.result)
-
+    this.state.isRight = this.checkResponse(this.state.response, this.state.result);
+    this.state.isWrong = !this.state.isRight;
     this.state.isChecked = true;
+
     this.forceUpdate();
-
-
-
   }
 
   render() {
@@ -102,11 +95,12 @@ class Exercise extends Component {
                     type="number"
                     value={this.state.response}
                     onChange={this.onChange}
-                    error={errors.wrong}
+                    error={this.state.isWrong}
+                    valid={this.state.isRight}
                   />
                   : ''}
 
-                <input name="Verifica" type="submit" className="btn btn-info btn-block mt-4" />
+                <button name="submit" type="submit" className="btn btn-info btn-block mt-4">{this.state.isRight ? "Felicitari" : "Verifica"}</button>
               </form>
             </div>
           </div>
@@ -123,6 +117,7 @@ Exercise.propTypes = {
 };
 
 const mapStateToProps = state => ({
+  auth: state.auth,
   exec: state.exec,
   errors: state.errors
 });

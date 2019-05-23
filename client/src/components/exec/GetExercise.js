@@ -16,6 +16,13 @@ class GetExercise extends Component {
     this.onSubmit = this.onSubmit.bind(this);
   }
 
+  componentDidMount() {
+
+    if (!this.props.auth.isAuthenticated) {
+      this.props.history.push('./');
+    }
+  }
+
   componentWillReceiveProps(nextProps) {
     if (nextProps.exec.isRetrived) {
       this.props.history.push(`./exercise`);
@@ -74,6 +81,7 @@ GetExercise.propTypes = {
 };
 
 const mapStateToProps = state => ({
+  auth: state.auth,
   exec: state.exec,
   errors: state.errors
 });
