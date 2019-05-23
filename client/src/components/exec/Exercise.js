@@ -22,6 +22,7 @@ class Exercise extends Component {
       errors: {}
     };
 
+    // TODO: TOT CE NU E IN REDUX STATE SA SCOT DIN STATE
     this.checkResponse = () => {
       return this.state.result == this.state.response;
     }
@@ -73,6 +74,10 @@ class Exercise extends Component {
     this.state.isWrong = !this.state.isRight;
     this.state.isChecked = true;
 
+    if (this.state.isRight)
+      document.body.querySelector('#btnSubmit').focus();
+
+
     this.forceUpdate();
   }
 
@@ -88,19 +93,17 @@ class Exercise extends Component {
               <p>{toTemplate(this.state.text)}</p>
               <form onSubmit={this.onSubmit}>
 
-                {this.state.result ?
-                  <TextFieldGroup
-                    placeholder="Raspuns"
-                    name="response"
-                    type="number"
-                    value={this.state.response}
-                    onChange={this.onChange}
-                    error={this.state.isWrong}
-                    valid={this.state.isRight}
-                  />
-                  : ''}
+                <TextFieldGroup
+                  placeholder="Raspuns"
+                  name="response"
+                  type="number"
+                  value={this.state.response}
+                  onChange={this.onChange}
+                  error={this.state.isWrong}
+                  valid={this.state.isRight}
+                />
 
-                <button name="submit" type="submit" className="btn btn-info btn-block mt-4">{this.state.isRight ? "Felicitari" : "Verifica"}</button>
+                <button id="btnSubmit" name="submit" type="submit" className="btn btn-info btn-block mt-4">{this.state.isRight ? "Felicitari" : "Verifica"}</button>
               </form>
             </div>
           </div>
