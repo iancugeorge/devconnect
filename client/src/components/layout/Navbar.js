@@ -37,6 +37,16 @@ class Navbar extends Component {
         <li className="nav-item">
           <Link className="nav-link" to="/getexercise"> Probleme </Link>
         </li>
+        <li className="nav-item">
+          <Link className="nav-link" to="/postexercise"> Adauga probleme </Link>
+        </li>
+      </ul>
+    )
+    const guestProb = (
+      <ul className="navbar-nav mr-auto">
+        <li className="nav-item">
+          <Link className="nav-link" to="/getexercise"> Probleme </Link>
+        </li>
       </ul>
     )
 
@@ -49,7 +59,7 @@ class Navbar extends Component {
           </button>
 
           <div className="collapse navbar-collapse" id="mobile-nav">
-            {isAuthenticated ? authProb : ''}
+            {isAuthenticated ? authProb : guestProb}
 
             {isAuthenticated ? authLinks : guestLinks}
 

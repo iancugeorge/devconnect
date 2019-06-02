@@ -7,10 +7,6 @@ const ExerciseSchema = new Schema({
     type: Number,
     required: true
   },
-  tags: [{
-    type: String,
-    require: true
-  }],
   text: {
     type: String,
     require: true

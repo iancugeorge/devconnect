@@ -29,9 +29,10 @@ router.post("/register", (req, res) => {
     return res.status(400).json(errors);
   }
 
+  // Cauta daca emailul este deja inregistrat
   User.findOne({ email: req.body.email }).then(user => {
     if (user) {
-      errors.email = "Email already exists";
+      errors.email = "Email exista deja";
       return res.status(400).json(errors.email);
     } else {
       const avatar = gravatar.url(req.body.email, {
@@ -40,6 +41,7 @@ router.post("/register", (req, res) => {
         d: "mm"
       });
 
+      // Creaza un User nou cu datele colectate
       const newUser = new User({
         name: req.body.name,
         email: req.body.email,
@@ -47,6 +49,7 @@ router.post("/register", (req, res) => {
         password: req.body.password
       });
 
+      // Encripteaza parola si trimite userul la baza de date
       bcrypt.genSalt(10, (err, salt) => {
         bcrypt.hash(newUser.password, salt, (err, hash) => {
           if (err) throw err;
@@ -79,7 +82,7 @@ router.post("/login", (req, res) => {
   User.findOne({ email }).then(user => {
     // Check for user
     if (!user) {
-      errors.email = "User not found";
+      errors.email = "Utilizatorul nu este gasit";
       return res.status(404).json(errors);
     }
 
@@ -102,7 +105,7 @@ router.post("/login", (req, res) => {
           }
         );
       } else {
-        errors.password = "Password Incorect";
+        errors.password = "Parola incorecta";
         return res.status(404).json(errors);
       }
     });

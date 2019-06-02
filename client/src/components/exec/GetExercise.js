@@ -19,7 +19,7 @@ class GetExercise extends Component {
   componentDidMount() {
 
     if (!this.props.auth.isAuthenticated) {
-      this.props.history.push('./');
+      // this.props.history.push('./');
     }
   }
 
@@ -27,6 +27,7 @@ class GetExercise extends Component {
     if (nextProps.exec.isRetrived) {
       this.props.history.push(`./exercise`);
     }
+
     if (nextProps.errors) {
       this.setState({ errors: nextProps.errors });
     }
@@ -60,7 +61,7 @@ class GetExercise extends Component {
                   type="number"
                   value={this.state.id.toString()}
                   onChange={this.onChange}
-                  errors={this.errors}
+                  error={errors.id}
                 />
 
                 <input type="submit" className="btn btn-info btn-block mt-4" />

@@ -1,3 +1,5 @@
+// Utilitar pentru a verifica toate formele de lipsa a unei valori
+
 const isEmpty = value =>
   value === undefined ||
   value === null ||

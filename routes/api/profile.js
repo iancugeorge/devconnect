@@ -29,7 +29,7 @@ router.get(
       .populate('user', ['name', 'avatar'])
       .then(profile => {
         if (!profile) {
-          errors.noprofile = "There is no profile for this user";
+          errors.noprofile = "Nu este nici un profil pentru acest utilizator";
           return res.status(404).json(errors.noprofile);
         }
         res.json(profile);
@@ -81,7 +81,7 @@ router.post(
         // Check if handle exists
         Profile.findOne({ handle: profileFileds.handle }).then(profile => {
           if (profile) {
-            errors.handle = "That handle already exists";
+            errors.handle = "Utilizatorul exista deja";
             res.status(400).json(erorrs);
           }
 

@@ -1,2 +1,2 @@
-# devconnect
-MERN
+# BLACKBIRD
+Rezolva probleme de matematica

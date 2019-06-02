@@ -13,6 +13,7 @@ import Landing from './components/layout/Landing';
 import Login from './components/auth/Login';
 import Register from './components/auth/Register';
 import GetExercise from './components/exec/GetExercise';
+import PostExercise from './components/exec/PostExercise';
 import Exercise from './components/exec/Exercise';
 
 import './App.css';
@@ -44,11 +45,13 @@ class App extends Component {
         <Router>
           <div className="App">
             <Navbar />
+            {/* Rute spre fiecare componenta */}
             <Route exact path="/" component={Landing} />
             <div className="container">
               <Route exact path="/register" component={Register} />
               <Route exact path="/login" component={Login} />
               <Route exact path="/getExercise" component={GetExercise} />
+              <Route exact path="/postExercise" component={PostExercise} />
               <Route exact path="/exercise" component={Exercise} />
             </div>
             <Footer />
