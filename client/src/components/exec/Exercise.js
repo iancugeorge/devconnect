@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import TextFieldGroup from '../common/TextFieldGroup';
 import { updateVars, toTemplate } from '../../utils/variableUtils';
+import { clearExec } from '../../actions/execActions';
 
 class Exercise extends Component {
   constructor() {
@@ -22,7 +23,6 @@ class Exercise extends Component {
       errors: {}
     };
 
-    // TODO: TOT CE NU E IN REDUX STATE SA SCOT DIN STATE
     this.checkResponse = () => {
       return this.state.result == this.state.response;
     }
@@ -52,9 +52,9 @@ class Exercise extends Component {
       this.state.result = ex.result;
 
       this.setState({ response: ex.response });
-      console.log(this.state);
 
       updateVars(this.state);
+      console.log(this.state);
     }
   }
 
@@ -74,10 +74,11 @@ class Exercise extends Component {
     this.state.isWrong = !this.state.isRight;
     this.state.isChecked = true;
 
-    if (this.state.isRight)
+    if (this.state.isRight) {
       document.body.querySelector('#btnSubmit').focus();
-
-
+      this.state = {};
+      this.props.clearExec();
+    }
     this.forceUpdate();
   }
 
@@ -115,6 +116,7 @@ class Exercise extends Component {
 }
 
 Exercise.propTypes = {
+  clearExec: PropTypes.func.isRequired,
   exec: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired
 };
@@ -125,4 +127,4 @@ const mapStateToProps = state => ({
   errors: state.errors
 });
 
-export default connect(mapStateToProps)(Exercise);
+export default connect(mapStateToProps, { clearExec })(Exercise);

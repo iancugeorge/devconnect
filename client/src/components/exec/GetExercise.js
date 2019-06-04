@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getExercise } from '../../actions/execActions';
 import TextFieldGroup from '../common/TextFieldGroup';
+import { clearExec } from '../../actions/execActions';
 
 class GetExercise extends Component {
   constructor() {
@@ -18,8 +19,10 @@ class GetExercise extends Component {
 
   componentDidMount() {
 
+    this.state = {};
+    this.props.clearExec();
     if (!this.props.auth.isAuthenticated) {
-      // this.props.history.push('./');
+      //this.props.history.push('./');
     }
   }
 
@@ -76,6 +79,7 @@ class GetExercise extends Component {
 }
 
 GetExercise.propTypes = {
+  clearExec: PropTypes.func.isRequired,
   getExercise: PropTypes.func.isRequired,
   exec: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired
@@ -87,4 +91,4 @@ const mapStateToProps = state => ({
   errors: state.errors
 });
 
-export default connect(mapStateToProps, { getExercise })(GetExercise);
+export default connect(mapStateToProps, { getExercise, clearExec })(GetExercise);

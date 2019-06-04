@@ -38,3 +38,9 @@ export const setCurrentExercise = decoded => {
     payload: decoded
   }
 }
+
+// Clear exercise
+export const clearExec = () => dispatch => {
+  // Set current exec to empty object which will set isRetrived to false
+  dispatch(setCurrentExercise({}));
+}

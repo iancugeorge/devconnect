@@ -52,3 +52,25 @@ export const toTemplate = string => {
   const template = eval('`' + string + '`');
   return template;
 }
+
+function rotunjireLa(num, pre) {
+  if ((num % pre) >= (5 * (pre / 10))) {
+    return Math.ceil(num / pre) * pre;
+  } else {
+    return Math.floor(num / pre) * pre
+  }
+}
+
+function sumaCifre(num) {
+  let sum = 0;
+  while (num != 0) {
+    console.log(num);
+    sum += num % 10;
+    num = Math.floor(num / 10);
+  }
+  return sum;
+}
+
+function cifraLa(num, pre) {
+  return Math.floor(num / pre) % 10;
+}
