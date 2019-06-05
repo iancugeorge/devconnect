@@ -37,9 +37,9 @@ class Navbar extends Component {
         <li className="nav-item">
           <Link className="nav-link" to="/getexercise"> Probleme </Link>
         </li>
-        <li className="nav-item">
+        {/* <li className="nav-item">
           <Link className="nav-link" to="/postexercise"> Adauga probleme </Link>
-        </li>
+        </li> */}
       </ul>
     )
     const guestProb = (

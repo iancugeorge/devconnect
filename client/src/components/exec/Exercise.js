@@ -1,3 +1,4 @@
+// IMPORTS
 import React, { Component } from 'react'
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -5,6 +6,7 @@ import TextFieldGroup from '../common/TextFieldGroup';
 import { updateVars, toTemplate } from '../../utils/variableUtils';
 import { clearExec, getExercise } from '../../actions/execActions';
 
+// COMPONENT
 class Exercise extends Component {
   constructor() {
     super();
@@ -18,7 +20,7 @@ class Exercise extends Component {
 
       isChecked: false,
       isRight: false,
-      wasWrong: false,
+      willRepeat: false,
 
       errors: {}
     };
@@ -29,8 +31,8 @@ class Exercise extends Component {
         document.body.querySelector('#btnSubmit').focus();
       } else {
         this.state.isRight = false;
+        document.body.querySelector('#txtrsp').focus();
       }
-
       this.state.isChecked = true;
     }
 
@@ -44,7 +46,7 @@ class Exercise extends Component {
 
       this.state.isChecked = false;
       this.state.isRight = false;
-      this.state.wasWrong = false;
+      this.state.willRepeat = false;
 
       this.state.errors = {};
     }
@@ -93,34 +95,28 @@ class Exercise extends Component {
   onSubmit(e) {
     e.preventDefault();
 
-    document.body.querySelector('#txtrsp').focus();
-
+    // IF IS WRONG IT MARKS IT FOR REPEATING
     if (!this.state.isRight && this.state.isChecked) {
-      this.state.wasWrong = true;
+      this.state.willRepeat = true;
     }
-    if (this.state.isRight && this.state.isChecked && !this.state.wasWrong) {
+    // IF IS RIGHT AND WILL NOT REPEAT THEN EXIT
+    if (this.state.isRight && this.state.isChecked && !this.state.willRepeat) {
       this.props.clearExec();
       this.props.history.push(`./getexercise`);
     }
-    if (this.state.isRight && this.state.isChecked && this.state.wasWrong) {
-      // this.props.getExercise(nextId);
+    // IF IS RIGHT BUT WILL REPEAT GET ANOTHER EXERCISE AND RELOAD
+    if (this.state.isRight && this.state.isChecked && this.state.willRepeat) {
       this.resetState();
       this.reload();
-      document.body.querySelector('#txtrsp').focus();
       return;
     }
 
-
+    // Check the response
     this.checkResponse(this.state.response, this.state.result);
 
+    // Update the component to reflect the answer
     this.forceUpdate();
   }
-
-  // componentWillReceiveProps(nextProps) {
-  //   if (nextProps.exec.isRetrived) {
-  //     this.props.history.push(`./exercise`);
-  //   }
-  // }
 
   render() {
     const { errors } = this.state;
