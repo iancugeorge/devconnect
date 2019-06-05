@@ -18,6 +18,7 @@ class GetExercise extends Component {
   }
 
   componentDidMount() {
+    document.body.querySelector('#input').focus();
 
     this.state = {};
     this.props.clearExec();
@@ -59,6 +60,7 @@ class GetExercise extends Component {
               <form onSubmit={this.onSubmit}>
 
                 <TextFieldGroup
+                  id="input"
                   placeholder="Id Problema"
                   name="id"
                   type="number"

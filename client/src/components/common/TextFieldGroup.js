@@ -3,6 +3,7 @@ import classnames from 'classnames';
 import propTypes from 'prop-types';
 
 const TextFieldGroup = ({
+  id,
   name,
   placeholder,
   value,
@@ -17,6 +18,7 @@ const TextFieldGroup = ({
   return (
     <div className="form-group">
       <input
+        id={id}
         type={type}
         className={classnames("form-control form-control-lg", {
           'is-invalid': error
