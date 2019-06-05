@@ -16,6 +16,18 @@ const ProfileSchema = new Schema({
     type: String,
     required: true
   },
+  leared: [
+    {
+      lesonId: {
+        type: Number,
+        required: true
+      },
+      level: {
+        type: Number,
+        required: true
+      }
+    }
+  ],
   date: {
     type: Date,
     default: Date.now
