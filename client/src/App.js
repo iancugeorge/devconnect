@@ -17,6 +17,7 @@ import PostExercise from './components/exec/PostExercise';
 import Exercise from './components/exec/Exercise';
 
 import './App.css';
+import textLesson from './components/lesson/textLesson';
 
 // Check for token
 if (localStorage.jwtToken) {

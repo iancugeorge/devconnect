@@ -31,6 +31,8 @@ class Exercise extends Component {
         document.body.querySelector('#btnSubmit').focus();
       } else {
         this.state.isRight = false;
+        /// CHANGE THE REDUX STATE TO NEXT EXERCISE
+        this.props.getExercise(7);
         document.body.querySelector('#txtrsp').focus();
       }
       this.state.isChecked = true;

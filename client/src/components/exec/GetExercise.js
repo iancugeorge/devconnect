@@ -13,6 +13,12 @@ class GetExercise extends Component {
       errors: {}
     };
 
+    this.getExerciseBtn = (e) => {
+      let ids = e.target.id.split(" ");
+      let selectedId = Math.floor(Math.random() * (ids.length));
+      this.props.getExercise(ids[selectedId]);
+    }
+
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
@@ -71,6 +77,16 @@ class GetExercise extends Component {
 
                 <input type="submit" className="btn btn-info btn-block mt-4" />
               </form>
+              <div className="row">
+                <div className="col-md-6">
+                  <button onClick={this.getExerciseBtn} id="3 4 5" className="btn btn-info btn-block mt-4">Rotunjire</button>
+                  <button onClick={this.getExerciseBtn} id="7 8 9" className="btn btn-info btn-block mt-4">Ordinul cifrelor</button>
+                </div>
+                <div className="col-md-6">
+                  <button onClick={this.getExerciseBtn} id="6" className="btn btn-info btn-block mt-4">Suma cifrelor</button>
+                  <button onClick={this.getExerciseBtn} id="15 16 17 18 19" className="btn btn-info btn-block mt-4">Aflarea cifrelor</button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
